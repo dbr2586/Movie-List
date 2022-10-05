@@ -68,7 +68,7 @@ function searchForMovie(){
 
 
 
-    fetch (`http://www.omdbapi.com/?s=${movieToSearchFor}&apikey=c9565f8b&type=movie`)
+    fetch (`https://www.omdbapi.com/?s=${movieToSearchFor}&apikey=c9565f8b&type=movie`)
     .then (data => data.json())
     .then (data => {
         if (data.Response === "False"){
@@ -89,7 +89,7 @@ function searchForMovie(){
         // }, 751)
         let fetchCount = 0 
         for (let movie of movieSearchResults){
-                 fetch (`http://www.omdbapi.com/?i=${movie.imdbID}&apikey=c9565f8b`)
+                 fetch (`https://www.omdbapi.com/?i=${movie.imdbID}&apikey=c9565f8b`)
                  .then (data => data.json())
                   .then (data => {
                     fetchCount++
@@ -559,7 +559,7 @@ function expandMovieCard(buttonId){
     cardToExpand.innerHTML = ""
     document.getElementById("search-bar-container").style.visibility = "hidden"
     document.getElementById("search-results-container").classList.add("expand-to-full-screen")
-    fetch (`http://www.omdbapi.com/?i=${movieCard.imdbID}&apikey=c9565f8b&plot=full`)
+    fetch (`https://www.omdbapi.com/?i=${movieCard.imdbID}&apikey=c9565f8b&plot=full`)
         .then(data => data.json())
         .then((data) => {
             Object.assign(movieCard, data)
