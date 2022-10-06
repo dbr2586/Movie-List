@@ -11,6 +11,7 @@ let firstSearch = true
 let savedListModeActive = false
 let movieNeedsDeleting = false
 let itemIsGettingDeleted = false
+let returningToSearchScreen= false
 let movieToDelete = ""
 let movieToDeleteIndex 
 
@@ -66,10 +67,11 @@ function searchForMovie(){
     //     firstSearch = false
     // }
     document.getElementById("search-results-container").style.animation = "none"
-  
-    movieSearchResults = []
-    movieSearchResultCardsDeck = []
-    duplicateSearches = []
+    if (!returningToSearchScreen){
+        movieSearchResults = []
+        movieSearchResultCardsDeck = []
+        duplicateSearches = []
+    }
     // document.getElementById("search-results-container").innerHTML = ""
     document.getElementById("search-results-container").style.animation = "blurOut .5s linear both"
 
@@ -77,6 +79,11 @@ function searchForMovie(){
    
 
 
+    if (returningToSearchScreen){
+        generateMovieCards()
+        checkForMoviesAlreadySaved()
+        returningToSearchScreen = false 
+    } else{
 
     fetch (`https://www.omdbapi.com/?s=${movieToSearchFor}&apikey=c9565f8b&type=movie`)
     .then (data => data.json())
@@ -117,60 +124,49 @@ function searchForMovie(){
                         // let saveButtonId = movieSearchResultCard.generateExpandButtonId() 
                         // let movieCardHtml = movieSearchResultCard.generateMovieCardHtml()
                           
-                })
+                })  } }})}
+
+        function generateMovieCards(){
+            let generationCount = 0 
+            // document.getElementById("search-results-container").style.animation = "blurIn .5s linear both"
+            document.getElementById("waiting-animation").remove()
+        for (let movie of movieSearchResults){
+            generationCount++
+            let movieSearchResultCard = new MovieCard(movie)
+            movieSearchResultsMap.set(movieSearchResultCard.movieCardId, movieSearchResultCard)
+            movieSearchResultCardsDeck.push(movieSearchResultCard)
+            document.getElementById("search-results-container").innerHTML += movieSearchResultCard.generateMovieCardHtml()
+            document.getElementById(movieSearchResultCardsDeck[movieSearchResultCardsDeck.length - 1].movieCardId).classList.add("blur-in")
+            // checkIfMovieIsAlreadySaved()
+            // function checkIfMovieIsAlreadySaved(){
+            //     let alreadySavedMovie = savedMovieCards.find(savedMovie => savedMovie.imdbID === movieSearchResultCard.imdbID)
+            //     console.log(`Already saved movie = ${alreadySavedMovie}`)
+            //     if (alreadySavedMovie){
+            //         let i = movieSearchResultCardsDeck.indexOf(movieSearchResultCard)
+            //         movieSearchResultCardsDeck.splice(movieSearchResultCardsDeck[i], 1, alreadySavedMovie )
+            //         document.getElementById(movieSearchResultCard.addButtonId).classList.add("saved")
+            //     }
+            // }
+            if (generationCount >= movieSearchResults.length / 2){
+                document.getElementById("search-results-container").style.animation = "blurIn .5s linear both"
             }
-            function generateMovieCards(){
-                let generationCount = 0 
-                // document.getElementById("search-results-container").style.animation = "blurIn .5s linear both"
-                document.getElementById("waiting-animation").remove()
-            for (let movie of movieSearchResults){
-                generationCount++
-                let movieSearchResultCard = new MovieCard(movie)
-                movieSearchResultsMap.set(movieSearchResultCard.movieCardId, movieSearchResultCard)
-                movieSearchResultCardsDeck.push(movieSearchResultCard)
-                document.getElementById("search-results-container").innerHTML += movieSearchResultCard.generateMovieCardHtml()
-                document.getElementById(movieSearchResultCardsDeck[movieSearchResultCardsDeck.length - 1].movieCardId).classList.add("blur-in")
-                // checkIfMovieIsAlreadySaved()
-                // function checkIfMovieIsAlreadySaved(){
-                //     let alreadySavedMovie = savedMovieCards.find(savedMovie => savedMovie.imdbID === movieSearchResultCard.imdbID)
-                //     console.log(`Already saved movie = ${alreadySavedMovie}`)
-                //     if (alreadySavedMovie){
-                //         let i = movieSearchResultCardsDeck.indexOf(movieSearchResultCard)
-                //         movieSearchResultCardsDeck.splice(movieSearchResultCardsDeck[i], 1, alreadySavedMovie )
-                //         document.getElementById(movieSearchResultCard.addButtonId).classList.add("saved")
-                //     }
-                // }
-                if (generationCount >= movieSearchResults.length / 2){
-                    document.getElementById("search-results-container").style.animation = "blurIn .5s linear both"
+        }
+    }
+
+    function checkForMoviesAlreadySaved(){
+        for (let card of movieSearchResultCardsDeck){
+            for (let savedMovie of savedMovieCards){
+                if (card.imdbID === savedMovie.imdbID){
+                    Object.assign(card, savedMovie)
+                    // movieSearchResults.splice(movieSearchResults.indexOf(searchResult), 1)
+                    // duplicateSearches.push(searchResult)
+                    document.getElementById(card.addButtonId).classList.add("saved")
+                    // console.log(movieSearchResults)
+                    // console.log(duplicateSearches)
                 }
             }
         }
-
-        function checkForMoviesAlreadySaved(){
-            for (let card of movieSearchResultCardsDeck){
-                for (let savedMovie of savedMovieCards){
-                    if (card.imdbID === savedMovie.imdbID){
-                        Object.assign(card, savedMovie)
-                        // movieSearchResults.splice(movieSearchResults.indexOf(searchResult), 1)
-                        // duplicateSearches.push(searchResult)
-                        document.getElementById(card.addButtonId).classList.add("saved")
-                        // console.log(movieSearchResults)
-                        // console.log(duplicateSearches)
-                    }
-                }
-            }
-        }
-
-
-    
-
-
-   
-
-
-
-
-        }})
+    }
 
      
             
@@ -228,21 +224,11 @@ function MovieCard(data){
 
         }
 
-    this.generateMovieCardContent = function(){
+    this.generateStarsAndRatingClasses = function(whichOne){
+
         let stars = ""
         let classToAddToRating 
-        let classToAddToStars 
-        this.expandButtonId = `expand-button-${this.imdbID}`
-        this.addButtonId = `save-button-${this.imdbID}`
-        this.undoButtonId = `undo-button-${this.imdbID}`
-        let optionalSavedClass = ""
-        if (this.CardSaved){
-            optionalSavedClass = "saved"
-        }
-        let optionalSaveModeClass = ""
-        if (savedListModeActive){
-            optionalSaveModeClass = "save-mode"
-        }
+        let classToAddToStars
 
         if (Number(this.imdbRating) >= 7){
             classToAddToStars = "green-stars"
@@ -265,6 +251,32 @@ function MovieCard(data){
         if (this.imdbRating - Math.floor(this.imdbRating) >= .4 ){
             stars += `<img class="star ${classToAddToStars}" src="images/star-half-solid.svg">`
         }
+
+        if (whichOne === "getStars"){
+            return stars}
+
+        if (whichOne === "getRatingClass"){
+            return classToAddToRating}
+
+
+    }
+
+    this.generateMovieCardContent = function(){
+        this.expandButtonId = `expand-button-${this.imdbID}`
+        this.addButtonId = `save-button-${this.imdbID}`
+        this.undoButtonId = `undo-button-${this.imdbID}`
+        let optionalSavedClass = ""
+        let stars = this.generateStarsAndRatingClasses("getStars")
+        let classToAddToRating = this.generateStarsAndRatingClasses("getRatingClass")
+
+        if (this.CardSaved){
+            optionalSavedClass = "saved"
+        }
+        let optionalSaveModeClass = ""
+        if (savedListModeActive){
+            optionalSaveModeClass = "save-mode"
+        }
+
 
 
              return   ` <div class="movie-image-container">
@@ -305,6 +317,8 @@ function MovieCard(data){
         this.goBackButtonId = `go-back-button-${this.imdbID}`
         this.littleGoBackButtonId = `go-back-button-${this.imdbID}-little`
         this.expandedAddButtonId = `expanded-add-button-${this.imdbID}`
+        let stars = this.generateStarsAndRatingClasses("getStars")
+        let classToAddToRating = this.generateStarsAndRatingClasses("getRatingClass")
 
         return ` 
         <img class="expanded-image" src="${this.Poster}">
@@ -335,14 +349,15 @@ function MovieCard(data){
             <div class="expanded-info-container four">
                 <p><span>Awards:</span> ${this.Awards} </p>
                 <p><span>Metacritic Score:</span> ${this.Metascore}</p>
-                <p><span>IMDB Rating:</span> ${this.imdbRating}</p>
                 <p><span>IMDB Votes:</span> ${this.imdbVotes}</p>
+                <p class="movie-rating ${classToAddToRating}"><span>IMDB Rating:&nbsp</span> ${stars}${this.imdbRating}</p>
             </div>
             <div class="separator"></div>
             <div class="expanded-info-container five">
                 <p>${this.LongPlot} </p>
            </div>
            <button class="go-back-button" id="${this.goBackButtonId}">Go Back</button>
+           <p class="ghost-spacer">&nbsp</p>
 
         </div>
 
@@ -429,6 +444,7 @@ document.addEventListener("click", function(event){
     }
 
     if (event.target.matches("#back-to-search-button")){
+        savedListModeActive = false
         returnToSearchScreen()
     }
 
@@ -707,6 +723,8 @@ function returnToSearchScreen(){
             </div>`
         
         document.getElementById("search-results-container").innerHTML = ""
+        returningToSearchScreen = true
+        searchForMovie()
         document.getElementById("left-top-container").style.animation = "blurIn .25s linear both"
         document.getElementById("middle-top-container").style.animation = "blurIn .25s linear both"
         document.getElementById("search-results-container").style.animation = "blurIn .25s linear both"
