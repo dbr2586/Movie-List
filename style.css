@@ -423,6 +423,8 @@ h1 {
 .expanded-image{
     padding-left: 100px;
     height: 100%;
+    max-width: 40%;
+    object-fit: cover;
 }
 
 .expanded-info-overall-container{
@@ -950,6 +952,16 @@ h1 {
 
       @media only screen and (max-width: 560px){
 
+
+        .expanded-card{
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: var(--starting-top-value);
+            left: var(--starting-left-value)
+        }
+
+      
         .movie-card{
             height: 300px;
         }
