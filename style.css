@@ -5,7 +5,7 @@
     --ending-left-value: 0px;
     --background-brightness-value: 1.5;
     --app-height: 100%
-    --app-wdith: 100%
+    --app-width: 100%
 }
 * { 
 	box-sizing: border-box;
@@ -52,6 +52,13 @@ body.save-mode{
     background-size: cover;
   }
 
+  @media not all and (hover:hover){
+    #background-container{
+        height: var(--app-height);
+        width: var(--app-width);
+    }
+}
+
   .brighten{
     filter: brightness(2) blur(50px)
   }
@@ -77,6 +84,12 @@ h1 {
     z-index: 5;
 }
 
+@media not all and (hover:hover){
+    .top-container{
+        width: var(--app-width);
+    }
+}
+
 .bottom-container {
     padding-top: 150px;
     color: cyan;
@@ -87,6 +100,12 @@ h1 {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+}
+
+@media not all and (hover:hover){
+    .bottom-container{
+        width: var(--app-width);
+    }
 }
 
 .bottom-container.save-mode {
@@ -963,27 +982,27 @@ h1 {
             margin: 0;
             border-top: none;
             border-bottom: none;
-            width: 100vw;
             padding: 20px;
-            max-width: 100vw;
-            height: 100vh;
+            height: var(--app-height);
+            width: var(--app-width);
+            max-width: var(--app-width);
             position: absolute;
             overflow: scroll;
             top: var(--ending-top-value);
             left: var(--ending-left-value)
         }
-
+     
         .expanded-info-overall-container{
             padding: 0;
             width: 100%;
-            max-width: 100vw;
+            max-width: var(--app-width);
             overflow: visible;
         }
 
         .expanded-info-container{
             padding: 10px;
             width: 100%; 
-            max-width: 100vw;
+            max-width: var(--app-width);
         }
 
       
