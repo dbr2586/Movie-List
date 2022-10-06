@@ -1000,6 +1000,7 @@ h1 {
      
         .expanded-info-overall-container{
             padding: 0;
+            height: 100%;
             width: 100%;
             max-width: var(--app-width);
             overflow: visible;
