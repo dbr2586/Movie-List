@@ -544,6 +544,7 @@ function expandMovieCard(buttonId){
     returnScrollValue = window.scrollY
     document.getElementById("search-bar-container").style.animation = "fade-out .15s linear both"
     document.body.style.overflow = "hidden"
+    document.getElementById("search-results-container").classList.add("fix")
     let movieArrayToUse = movieSearchResultCardsDeck
     if (savedListModeActive){
         movieArrayToUse = savedMovieCards
@@ -595,6 +596,7 @@ function minimizeMovieCard(buttonId){
         movieArrayToUse = savedMovieCards
     }
     let objectOfCardToMinimize
+    document.getElementById("search-results-container").classList.remove("fix")
     document.getElementById("search-results-container").classList.remove("expand-to-full-screen")
     document.documentElement.style.setProperty('--background-brightness-value', '1.5')
     document.getElementById("search-bar-container").style.visibility = "visible"

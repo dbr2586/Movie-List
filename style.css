@@ -987,10 +987,15 @@ h1 {
             height: var(--app-height);
             width: var(--app-width);
             max-width: var(--app-width);
-            position: fixed;
+            position: absolute;
             overflow: scroll;
             top: var(--ending-top-value);
             left: var(--ending-left-value)
+        }
+
+        .fix{
+            position: fixed;
+            overflow: hidden;
         }
      
         .expanded-info-overall-container{
@@ -1068,6 +1073,10 @@ h1 {
             height: 40px;
             border: none;
             background: cyan;
+        }
+
+        #no-results-message{
+            font-size: 25px;
         }
 
 
