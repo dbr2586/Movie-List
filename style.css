@@ -956,11 +956,18 @@ h1 {
 
 
         .expanded-card{
+            border-top: none;
+            border-bottom: none;
             width: 100vw;
             height: 100vh;
             position: absolute;
+            overflow: scroll;
             top: var(--starting-top-value);
             left: var(--starting-left-value)
+        }
+
+        .expanded-info-overall-container{
+            overflow: visible;
         }
 
       
