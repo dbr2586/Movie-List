@@ -15,6 +15,15 @@ let movieToDelete = ""
 let movieToDeleteIndex 
 
 
+const appHeight = () => {
+    const doc = document.documentElement
+    doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+}
+window.addEventListener('resize', appHeight)
+appHeight()
+
+
+
 
 
 document.getElementById("search-bar-container").onscroll = function(){

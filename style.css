@@ -4,6 +4,7 @@
     --ending-top-value: 0px;
     --ending-left-value: 0px;
     --background-brightness-value: 1.5;
+    --app-height: 100%
 }
 * { 
 	box-sizing: border-box;
@@ -21,6 +22,12 @@ body {
     background-position: 50% 50%;
     background-size: cover;
     background-repeat: repeat;
+}
+
+@media not all and (hover:hover){
+    body{
+        height: var(--app-height)
+    }
 }
 
 body.save-mode{
@@ -121,7 +128,7 @@ h1 {
 }
 
 #overall-search-container{
-    margin-left: 30px;
+    margin-left: 40px;
     height: 50%;
     width: 100%;
     display: flex;
