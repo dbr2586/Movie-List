@@ -962,12 +962,19 @@ h1 {
             height: 100vh;
             position: absolute;
             overflow: scroll;
-            top: var(--starting-top-value);
-            left: var(--starting-left-value)
+            top: var(--ending-top-value);
+            left: var(--ending-left-value)
         }
 
         .expanded-info-overall-container{
+            padding: 0;
+            width: 100vw;
             overflow: visible;
+        }
+
+        .expanded-info-container{
+            padding: 2px;
+            width: 100vw; 
         }
 
       
