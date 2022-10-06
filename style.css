@@ -979,6 +979,7 @@ h1 {
         padding-top: 120px;
        }
         .expanded-card{
+            animation: none;
             margin: 0;
             border-top: none;
             border-bottom: none;
@@ -1167,7 +1168,7 @@ h1 {
 
       @media only screen and (max-width: 420px){
         #saved-movies-title{
-            font-size: 20px;
+            font-size: 15px;
         }
         #open-saved-movies-button, #back-to-search-button{
             width: 90%;
