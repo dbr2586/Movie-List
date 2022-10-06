@@ -987,7 +987,7 @@ h1 {
             height: var(--app-height);
             width: var(--app-width);
             max-width: var(--app-width);
-            position: absolute;
+            position: fixed;
             overflow: scroll;
             top: var(--ending-top-value);
             left: var(--ending-left-value)
