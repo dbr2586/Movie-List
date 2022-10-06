@@ -956,9 +956,11 @@ h1 {
 
 
         .expanded-card{
+            margin: 0;
             border-top: none;
             border-bottom: none;
             width: 100vw;
+            max-width: 100vw;
             height: 100vh;
             position: absolute;
             overflow: scroll;
@@ -969,12 +971,14 @@ h1 {
         .expanded-info-overall-container{
             padding: 0;
             width: 100vw;
+            max-width: 100vw;
             overflow: visible;
         }
 
         .expanded-info-container{
-            padding: 2px;
+            padding: 10px;
             width: 100vw; 
+            max-width: 100vw;
         }
 
       
