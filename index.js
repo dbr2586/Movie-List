@@ -15,12 +15,13 @@ let movieToDelete = ""
 let movieToDeleteIndex 
 
 
-const appHeight = () => {
+const appHeightAndWidth = () => {
     const doc = document.documentElement
     doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+    doc.style.setProperty('--app-height', `${window.innerWidth}px`)
 }
-window.addEventListener('resize', appHeight)
-appHeight()
+window.addEventListener('resize', appHeightAndWidth)
+appHeightAndWidth()
 
 
 

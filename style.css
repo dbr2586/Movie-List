@@ -5,6 +5,7 @@
     --ending-left-value: 0px;
     --background-brightness-value: 1.5;
     --app-height: 100%
+    --app-wdith: 100%
 }
 * { 
 	box-sizing: border-box;
@@ -28,7 +29,8 @@ body {
 
 @media not all and (hover:hover){
     body{
-        height: var(--app-height)
+        height: var(--app-height);
+        width: var(--app-width);
     }
 }
 
@@ -798,7 +800,7 @@ h1 {
         }
 
         .expanded-image{
-            margin: 0;
+            margin: 5px 0 0 0;
             padding: 0;
             align-self: center;
             height: 50vh;
@@ -954,7 +956,9 @@ h1 {
 
       @media only screen and (max-width: 560px){
 
-
+       .bottom-container{
+        padding-top: 120px;
+       }
         .expanded-card{
             margin: 0;
             border-top: none;
