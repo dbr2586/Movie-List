@@ -4,7 +4,7 @@
     --ending-top-value: 0px;
     --ending-left-value: 0px;
     --background-brightness-value: 1.5;
-    --app-height: 100%
+    --app-height: 100%;
     --app-width: 100%
 }
 * { 
@@ -52,12 +52,12 @@ body.save-mode{
     background-size: cover;
   }
 
-  @media not all and (hover:hover){
+  /* @media not all and (hover:hover){
     #background-container{
         height: var(--app-height);
         width: var(--app-width);
     }
-}
+} */
 
   .brighten{
     filter: brightness(2) blur(50px)
@@ -426,7 +426,7 @@ h1 {
 .expanded-card{
     border-top: 75px solid rgba(1,1,1, .3);
     border-bottom: 75px solid rgba(1,1,1, .3);
-    animation: expand ease .5s both, blurIn ease 1s both;
+    animation: expand ease .5s both;
     margin: 0;
     padding: 25px 50px 25px 50px;
     display: flex;
@@ -809,7 +809,7 @@ h1 {
         .expanded-card{
             border-top: 75px solid rgba(1,1,1, .3);
             border-bottom: 75px solid rgba(1,1,1, .3);
-            animation: expand ease .5s both, blurIn ease 1s both;
+            animation: expand ease .5s both;
             margin: 0;
             padding: 25px 50px 25px 50px;
             display: flex;
@@ -876,7 +876,7 @@ h1 {
         .expanded-card{
             border-top: none;
             border-bottom: none;
-            animation: expand ease .5s both, blurIn ease 1s both;
+            animation: expand ease .5s both;
             margin: 0;
             padding: 25px 50px 205px 50px;
             display: flex;
@@ -947,7 +947,7 @@ h1 {
 
       @media only screen and (max-width: 600px){
         #search-field{
-            font-size: 16px;
+            font-size: 18px;
             padding-left: 50px;
         }
 
@@ -975,8 +975,57 @@ h1 {
 
       @media only screen and (max-width: 560px){
 
+        #search-button{
+            font-size: 15px;
+        }
+
+
+        #search-field-container img{
+            height: 30px;
+            margin-top: 10px;
+        }
+        
+    .top-container {
+        position: fixed;
+        background: rgb(36, 36, 36);
+        width: 100vw;
+        height: 25%;
+        display: flex;
+        flex-direction: column;
+        z-index: 5;
+    }
+
+    #overall-search-container{
+        height: 70%;
+        min-width: 100vw;
+        max-width: 100vw;
+        padding: 0 15px 0 15px
+    }
+
+    #middle-top-container{
+        margin-bottom: 20px;
+    }
+
+    #search-field-container{
+        width: 80%;
+        height: 100%;
+        padding: none;
+    }
+
+    #search-field{
+        width: 100%;
+        height: 100%;
+        border: none;
+        padding: none;
+    }
+
+    #search-button{
+        width: 20%;
+        height: 100%;
+    }
+
        .bottom-container{
-        padding-top: 120px;
+        padding-top: 50%;
        }
         .expanded-card{
             animation: none;
@@ -1100,9 +1149,7 @@ h1 {
             width: 85%;
         }
 
-        #search-button{
-            width: 120px
-        }
+ 
 
       }
 
@@ -1112,6 +1159,10 @@ h1 {
             flex-flow: column nowrap;
             align-items: center;
             max-width: 98vw;
+        }
+
+        .movie-card.expanded-card, .movie-card.save-mode.expanded-card{
+            height: 100vh;
         }
 
         .movie-card.save-mode{
