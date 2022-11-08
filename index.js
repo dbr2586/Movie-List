@@ -78,7 +78,7 @@ function searchForMovie(){
         checkForMoviesAlreadySaved()
     } else{
 
-    fetch (`http://www.omdbapi.com/?s=${movieToSearchFor}&apikey=c9565f8b&type=movie`)
+    fetch (`https://www.omdbapi.com/?s=${movieToSearchFor}&apikey=c9565f8b&type=movie`)
     .then (data => data.json())
     .then (data => {
         if (data.Response === "False"){
@@ -91,7 +91,7 @@ function searchForMovie(){
         movieSearchResults = [...data.Search]
         let fetchCount = 0 
         for (let movie of movieSearchResults){
-                 fetch (`http://www.omdbapi.com/?i=${movie.imdbID}&apikey=c9565f8b`)
+                 fetch (`https://www.omdbapi.com/?i=${movie.imdbID}&apikey=c9565f8b`)
                  .then (data => data.json())
                   .then (data => {
                     fetchCount++
