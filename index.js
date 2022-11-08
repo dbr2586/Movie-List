@@ -78,7 +78,7 @@ function searchForMovie(){
         checkForMoviesAlreadySaved()
     } else{
 
-    fetch (`https://www.omdbapi.com/?s=${movieToSearchFor}&apikey=c9565f8b&type=movie`)
+    fetch (`http://www.omdbapi.com/?s=${movieToSearchFor}&apikey=c9565f8b&type=movie`)
     .then (data => data.json())
     .then (data => {
         if (data.Response === "False"){
@@ -91,7 +91,7 @@ function searchForMovie(){
         movieSearchResults = [...data.Search]
         let fetchCount = 0 
         for (let movie of movieSearchResults){
-                 fetch (`https://www.omdbapi.com/?i=${movie.imdbID}&apikey=c9565f8b`)
+                 fetch (`http://www.omdbapi.com/?i=${movie.imdbID}&apikey=c9565f8b`)
                  .then (data => data.json())
                   .then (data => {
                     fetchCount++
@@ -394,7 +394,8 @@ document.addEventListener("click", function(event){
     
     if(event.target.matches('.add-button')){
         addMovieToWatchList(event.target.id)
-    } if (event.target.matches("#search-button")){
+    } 
+    if (event.target.matches("#search-button")){
         savedListModeActive = false
         if (document.getElementById("search-field").value != ""){
         searchForMovie()}
